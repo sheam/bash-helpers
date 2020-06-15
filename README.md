@@ -9,11 +9,13 @@ start ssh agent when first interactive bashs shell opens
 
 ## go
 Bookmarks for directories when use the Bash CLI.
-```To set a bookmark, cd to the directory you want to bookmark and then:
+```
+To set a bookmark, cd to the directory you want to bookmark and then:
     go -s <NAME>
 To delete a bookmark:
     go -d <NAME>
 To CD to a directory by bookmark name:
     go <NAME>
 To print a list of bookmarks:
-    go -l```
+    go -l
+```
