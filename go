@@ -1,4 +1,13 @@
 BOOKMARK_FILE=~/.cli_bookmarks
+READ_OPTS=""
+NI=0
+LI=1
+if [ $SHELL = "/bin/zsh" ]; then
+    READ_OPTS="-A"
+    NI=1
+    LI=2
+fi
+
 #make sure that the directory of go.rb is in your path
 #source this file from your .profile file
 function go()
@@ -70,10 +79,10 @@ function _print_bookmarks()
     echo ""
     printf "%-15s   %-60s\n" "BOOKMARK" "LOCATION"
     printf "%-15s   %-60s\n" "--------" "--------"
-    while read LINE; do
+    while read $READ_OPTS LINE; do
         local PARTS=($LINE)
-        local NAME=${PARTS[0]}
-        local LOCATION=${PARTS[1]}
+        local NAME=${PARTS[$NI]}
+        local LOCATION=${PARTS[$LI]}
         printf "%-15s   %-60s\n" $NAME $LOCATION
     done < <(sort "$BOOKMARK_FILE")
     return 0
@@ -82,10 +91,10 @@ function _print_bookmarks()
 function _get_location_from_name() 
 {
     local TARGET=$1
-    while read LINE; do
+    while read $READ_OPTS LINE; do
         local PARTS=($LINE)
-        local NAME=${PARTS[0]}
-        local LOCATION=${PARTS[1]}
+        local NAME=${PARTS[$NI]}
+        local LOCATION=${PARTS[$LI]}
         if [ "$NAME" = "$TARGET" ]; then
             echo $LOCATION
             return 0
@@ -98,10 +107,10 @@ function _get_location_from_name()
 function _get_name_from_location() 
 {
     local TARGET=$1
-    while read LINE; do
+    while read $READ_OPTS LINE; do
         local PARTS=($LINE)
-        local NAME=${PARTS[0]}
-        local LOCATION=${PARTS[1]}
+        local NAME=${PARTS[$NI]}
+        local LOCATION=${PARTS[$LI]}
         if [ "$LOCATION" = "$TARGET" ]; then
             echo $NAME
             return 0
@@ -147,10 +156,10 @@ function _delete_bookmark()
     local TMP=/tmp/cli_bookmarks
     rm -f $TMP
     touch $TMP
-    while read LINE; do
+    while read $READ_OPTS LINE; do
         local PARTS=($LINE)
-        local NAME=${PARTS[0]}
-        local LOCATION=${PARTS[1]}
+        local NAME=${PARTS[$NI]}
+        local LOCATION=${PARTS[$LI]}
         if [ "$NAME" = "$TARGET" ]; then
             echo "removed $NAME ($LOCATION)"
         else
