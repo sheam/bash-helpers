@@ -1,0 +1,3 @@
+#!/bin/bash
+
+zypper dup -y --auto-agree-with-licenses && flatpak update -y && flatpak remove --unused -y
