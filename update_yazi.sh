@@ -14,6 +14,12 @@ BIN="$BASH_HELPERS/bin"
 BIN_YAZI="$BIN/yazi"
 BIN_YA="$BIN/ya"
 
+if [ ! -d "$YAZI" ]; then
+	echo "downloading yazi from github"
+	cd $(dirname $YAZI)
+	git clone https://github.com/sxyazi/yazi.git
+fi
+
 # build
 echo "Building latest stable version of Yazi"
 cd $YAZI
