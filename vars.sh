@@ -1,4 +1,6 @@
 export EDITOR=nvim
+export SSH_ASKPASS=/usr/bin/ksshaskpass
+export SSH_ASKPASS_REQUIRE=prefer
 
 if [ -z "$BASH_HELPERS" ]; then
 	echo "BASH_HELPERS is not set, quitting"
