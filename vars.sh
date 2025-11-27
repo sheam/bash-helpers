@@ -7,3 +7,5 @@ if [ -z "$BASH_HELPERS" ]; then
 	exit 1
 fi
 export PATH="$PATH:$BASH_HELPERS/bin"
+
+HISTIGNORE="ls:history"
