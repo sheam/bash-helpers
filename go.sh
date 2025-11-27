@@ -1,4 +1,4 @@
-BOOKMARK_FILE=~/.cli_bookmarks
+BOOKMARK_FILE=~/.local/state/.cli_bookmarks
 READ_OPTS=""
 NI=0
 LI=1
@@ -70,6 +70,7 @@ function _ensure_file()
 {
     if [ ! -f "$BOOKMARK_FILE" ]; then
         echo "Bookmark file $BOOKMARK_FILE not found. Creating."
+				mkdir -p "$(dirname $BOOKMARK_FILE)"
         touch "$BOOKMARK_FILE"
     fi
 }

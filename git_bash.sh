@@ -24,7 +24,15 @@ POSTFIX+="\[$COLOR_WHITE\]\\$\[$COLOR_RESET\] "
 #PROMPT_COMMAND="$(__git_ps1) $PREFIX' '$POSTFIX"
 #PS1='$(__git_ps1 "$PREFIX" "$POSTFIX")'
 
-PS1='${debian_chroot:+($debian_chroot)}\n'
-PS1+="\[$COLOR_BLUE\]\\w\[$COLOR_RESET\]\n"
-PS1+="\[$COLOR_GREEN\]\$(__git_ps1 '(%s)')\[$COLOR_RESET\]"
-PS1+="\[$COLOR_WHITE\]\\$\[$COLOR_RESET\] "
+__build_prompt() {
+	PS1=""
+	PS1+="\[$COLOR_BLUE\]\\w\[$COLOR_RESET\]\n"
+	PS1+="\[$COLOR_GREEN\]\$(__git_ps1 '(%s)')\[$COLOR_RESET\]"
+	PS1+="\[$COLOR_WHITE\]\\$\[$COLOR_RESET\] "
+}
+
+PROMPT_COMMAND="__build_prompt"
+
+# PS1+="\[$COLOR_BLUE\]\\w\[$COLOR_RESET\]\n"
+# PS1+="\[$COLOR_GREEN\]\$(__git_ps1 '(%s)')\[$COLOR_RESET\]"
+# PS1+="\[$COLOR_WHITE\]\\$\[$COLOR_RESET\] "
