@@ -8,9 +8,9 @@ if [ $SHELL = "/bin/zsh" ]; then
     LI=2
 fi
 
-#make sure that the directory of go.rb is in your path
+#make sure that the directory of bm.rb is in your path
 #source this file from your .profile file
-function go()
+function bm()
 {
     _ensure_file
     if [ $# = 0 ] || [ "$1" = "-l" ]; then
@@ -50,19 +50,19 @@ function go()
 function _print_help()
 {
     echo "To set a bookmark, cd to the directory you want to bookmark and then:"
-    echo "    go -s <NAME>"
+    echo "    bm -s <NAME>"
 
     echo "To delete a bookmark:"
-    echo "    go -d <NAME>"
+    echo "    bm -d <NAME>"
 
     echo "To CD to a directory by bookmark name:"
-    echo "    go <NAME>"
+    echo "    bm <NAME>"
 
     echo "To print a list of bookmarks: "
-    echo "    go -l"
+    echo "    bm -l"
 
     echo "To print help: "
-    echo "    go -h"
+    echo "    bm -h"
 }
 
 
@@ -132,13 +132,13 @@ function _set_bookmark()
     
     local EXISTING_LOCATION="$( _get_location_from_name $NAME)"
     if [ ! -z "$EXISTING_LOCATION" ]; then
-        echo "The bookmark named '$NAME' is already used to bookmarked'$EXISTING_LOCATION'. Delete before replacing (use 'go -d $NAME')."
+        echo "The bookmark named '$NAME' is already used to bookmarked'$EXISTING_LOCATION'. Delete before replacing (use 'bm -d $NAME')."
         return -1
     fi
     
     local EXISTING_NAME="$( _get_name_from_location $LOCATION)"
     if [ ! -z "$EXISTING_NAME" ]; then
-        echo "'$LOCATION' is already bookmarked under the name '$EXISTING_NAME'. Delete before replacing (use 'go -d $EXISTING_NAME')."
+        echo "'$LOCATION' is already bookmarked under the name '$EXISTING_NAME'. Delete before replacing (use 'bm -d $EXISTING_NAME')."
         return -1
     fi
 
