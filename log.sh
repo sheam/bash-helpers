@@ -79,7 +79,8 @@ logset() {
 
 	if [ -f "$NEWLOG" ]; then
 		echo "Warning: the file $NEWLOG already exists."
-		echo " Make sure to clear it using logclear if you want it to start fresh."
+		echo " It has $(wc -l < "$NEWLOG") lines in it currently"
+		echo " Use 'logclear' if you want it to start fresh."
 	fi
 
 	export LOG="$NEWLOG"
