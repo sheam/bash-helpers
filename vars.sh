@@ -6,6 +6,6 @@ if [ -z "$BASH_HELPERS" ]; then
 	echo "BASH_HELPERS is not set, quitting"
 	exit 1
 fi
-export PATH="$PATH:$BASH_HELPERS/bin"
+export PATH="$PATH:$BASH_HELPERS/bin:$GOPATH/bin:$HOME/.local/bin"
 
 HISTIGNORE="ls:history"
