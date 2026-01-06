@@ -169,3 +169,40 @@ function _delete_bookmark()
     done < "$BOOKMARK_FILE"
     sort $TMP > $BOOKMARK_FILE
 }
+
+# Tab completion for bm command
+function _bm_completions()
+{
+    local cur="${COMP_WORDS[COMP_CWORD]}"
+    local prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    # Options
+    local opts="-l -h -d -s"
+
+    # If completing after -d, complete with bookmark names
+    if [ "$prev" = "-d" ]; then
+        local names=""
+        if [ -f "$BOOKMARK_FILE" ]; then
+            names=$(awk '{print $1}' "$BOOKMARK_FILE")
+        fi
+        COMPREPLY=($(compgen -W "$names" -- "$cur"))
+        return 0
+    fi
+
+    # If completing after -s, no completion (user provides new name)
+    if [ "$prev" = "-s" ]; then
+        return 0
+    fi
+
+    # If completing the first argument
+    if [ $COMP_CWORD -eq 1 ]; then
+        local names=""
+        if [ -f "$BOOKMARK_FILE" ]; then
+            names=$(awk '{print $1}' "$BOOKMARK_FILE")
+        fi
+        COMPREPLY=($(compgen -W "$opts $names" -- "$cur"))
+        return 0
+    fi
+}
+
+complete -F _bm_completions bm

@@ -26,8 +26,29 @@ log() {
 	return "${PIPESTATUS[0]}"
 }
 
-unset -f logcopy
+unset -f logcp
+logcp() {
+	# Check if a command was provided
+	if [ $# -eq 0 ]; then
+		echo "Supply a command to log to the clipboard."
+		return 0
+	fi
+	
+	# Run the command and capture output + exit code
+	local output
+	local exit_code
+	
+	output=$("$@" 2>&1)
+	exit_code=$?
+	
+	# Display command + output to terminal AND clipboard
+	(echo "$ $*"; echo "$output") | tee >(wl-copy)
+	echo "Copied to clipboard"
+	
+	return $exit_code
+}
 
+unset -f logcopy
 logcopy() {
 	if [ -z "$LOG" ]; then
 		echo "Error: LOG environment variable is not set" >&2
