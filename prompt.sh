@@ -1,3 +1,7 @@
+if [ -n "$STARSHIP_SHELL" ]; then
+    return
+fi
+
 COLOR_RED="\033[01;31m"
 COLOR_YELLOW="\033[01;33m"
 COLOR_GREEN="\033[01;32m"

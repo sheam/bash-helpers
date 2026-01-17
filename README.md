@@ -1,21 +1,30 @@
 # Bash Helpers
-A list of files to `source` from .bashrc to to make life easier.
+- A set of scripts which make bash better to use
+- Source init.sh from your ~/.bashrc
 
-## git_bash
+## Helpers
+- create a .sh script in this directory, and then add the name of it to the `HELPERS` variable in init.sh
+- if there are parts of the script that can only be run on linux
+  then create a script ending with `.linux.sh`
+- if there are parts of the script that can only be run on window
+  then create a script ending with `.windows.sh`
+
+## git
 script to make bash prompt useful when working with git
 
-## start_ssh_agent
-start ssh agent when first interactive bashs shell opens
+## ssh.windows
+- start ssh agent when first interactive bashs shell opens
+- generally only needed on windows as KDE handles this
 
-## go
+## bm
 Bookmarks for directories when use the Bash CLI.
 ```
 To set a bookmark, cd to the directory you want to bookmark and then:
-    go -s <NAME>
+    bm -s <NAME>
 To delete a bookmark:
-    go -d <NAME>
+    bm -d <NAME>
 To CD to a directory by bookmark name:
-    go <NAME>
+    bm <NAME>
 To print a list of bookmarks:
-    go -l
+    bm -l
 ```
