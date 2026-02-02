@@ -1,4 +1,5 @@
-export EDITOR=nvim
+export EDITOR=hx
+# export EDITOR=nvim
 export SSH_ASKPASS=/usr/bin/ksshaskpass
 export SSH_ASKPASS_REQUIRE=prefer
 
