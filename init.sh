@@ -7,6 +7,7 @@ HELPERS="alias vars path bm log prompt flatpak ssh git"
 load_script() {
     local name="$1"
     local base_script="$BASH_HELPERS/$name.sh"
+    local local_script="$BASH_HELPERS/$name.local.sh"
     local platform_script
 
     if [ -n "$MSYSTEM" ]; then
@@ -23,6 +24,11 @@ load_script() {
     if [ -f "$platform_script" ]; then
         [ -n "$DEBUG" ] && echo "Sourcing $platform_script"
         . "$platform_script"
+    fi
+
+    if [ -f "$local_script" ]; then
+        [ -n "$DEBUG" ] && echo "Sourcing $local_script"
+        . "$local_script"
     fi
 }
 

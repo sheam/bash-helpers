@@ -1,2 +1,3 @@
 bin/ya
 bin/yazi
+*.local.sh
