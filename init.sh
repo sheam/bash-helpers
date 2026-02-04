@@ -2,7 +2,7 @@
 
 export BASH_HELPERS="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-HELPERS="alias vars path bm log prompt flatpak ssh git"
+HELPERS="alias vars path bm log prompt ssh git"
 
 load_script() {
     local name="$1"
