@@ -6,3 +6,5 @@ function yzd() {
 	fi
 	rm -f "$tmp"
 }
+
+alias glow='glow -p'
