@@ -3,3 +3,5 @@ if [ -n "$HISTIGNORE" ]; then
 else
     export HISTIGNORE="ls:history"
 fi
+
+export TIME_STYLE='+%Y-%m-%d %I:%M%p'
