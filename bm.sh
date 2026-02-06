@@ -1,12 +1,5 @@
-BOOKMARK_FILE=~/.local/state/.cli_bookmarks
+BOOKMARK_FILE=~/.local/share/cli_bookmarks.txt
 READ_OPTS=""
-NI=0
-LI=1
-if [ $SHELL = "/bin/zsh" ]; then
-    READ_OPTS="-A"
-    NI=1
-    LI=2
-fi
 
 #make sure that the directory of bm.rb is in your path
 #source this file from your .profile file
@@ -89,7 +82,7 @@ function _print_bookmarks()
     return 0
 }
 
-function _get_location_from_name() 
+function _get_location_from_name()
 {
     local TARGET=$1
     while read $READ_OPTS LINE; do
@@ -105,7 +98,7 @@ function _get_location_from_name()
     return -1
 }
 
-function _get_name_from_location() 
+function _get_name_from_location()
 {
     local TARGET=$1
     while read $READ_OPTS LINE; do
@@ -129,13 +122,13 @@ function _set_bookmark()
         echo "set_bookmark requires two arguments, NAME LOCATION."
         return -11
     fi
-    
+
     local EXISTING_LOCATION="$( _get_location_from_name $NAME)"
     if [ ! -z "$EXISTING_LOCATION" ]; then
         echo "The bookmark named '$NAME' is already used to bookmarked'$EXISTING_LOCATION'. Delete before replacing (use 'bm -d $NAME')."
         return -1
     fi
-    
+
     local EXISTING_NAME="$( _get_name_from_location $LOCATION)"
     if [ ! -z "$EXISTING_NAME" ]; then
         echo "'$LOCATION' is already bookmarked under the name '$EXISTING_NAME'. Delete before replacing (use 'bm -d $EXISTING_NAME')."
