@@ -1,5 +1,6 @@
 BOOKMARK_FILE=~/.local/share/cli_bookmarks.txt
-READ_OPTS=""
+NAME_INDEX=0
+LOCATION_INDEX=1
 
 #make sure that the directory of bm.rb is in your path
 #source this file from your .profile file
@@ -73,10 +74,10 @@ function _print_bookmarks()
     echo ""
     printf "%-15s   %-60s\n" "BOOKMARK" "LOCATION"
     printf "%-15s   %-60s\n" "--------" "--------"
-    while read $READ_OPTS LINE; do
+    while read LINE; do
         local PARTS=($LINE)
-        local NAME=${PARTS[$NI]}
-        local LOCATION=${PARTS[$LI]}
+        local NAME=${PARTS[$NAME_INDEX]}
+        local LOCATION=${PARTS[$LOCATION_INDEX]}
         printf "%-15s   %-60s\n" $NAME $LOCATION
     done < <(sort "$BOOKMARK_FILE")
     return 0
@@ -85,10 +86,10 @@ function _print_bookmarks()
 function _get_location_from_name()
 {
     local TARGET=$1
-    while read $READ_OPTS LINE; do
+    while read LINE; do
         local PARTS=($LINE)
-        local NAME=${PARTS[$NI]}
-        local LOCATION=${PARTS[$LI]}
+        local NAME=${PARTS[$NAME_INDEX]}
+        local LOCATION=${PARTS[$LOCATION_INDEX]}
         if [ "$NAME" = "$TARGET" ]; then
             echo $LOCATION
             return 0
@@ -101,10 +102,10 @@ function _get_location_from_name()
 function _get_name_from_location()
 {
     local TARGET=$1
-    while read $READ_OPTS LINE; do
+    while read LINE; do
         local PARTS=($LINE)
-        local NAME=${PARTS[$NI]}
-        local LOCATION=${PARTS[$LI]}
+        local NAME=${PARTS[$NAME_INDEX]}
+        local LOCATION=${PARTS[$LOCATION_INDEX]}
         if [ "$LOCATION" = "$TARGET" ]; then
             echo $NAME
             return 0
@@ -150,10 +151,10 @@ function _delete_bookmark()
     local TMP=/tmp/cli_bookmarks
     rm -f $TMP
     touch $TMP
-    while read $READ_OPTS LINE; do
+    while read LINE; do
         local PARTS=($LINE)
-        local NAME=${PARTS[$NI]}
-        local LOCATION=${PARTS[$LI]}
+        local NAME=${PARTS[$NAME_INDEX]}
+        local LOCATION=${PARTS[$LOCATION_INDEX]}
         if [ "$NAME" = "$TARGET" ]; then
             echo "removed $NAME ($LOCATION)"
         else
