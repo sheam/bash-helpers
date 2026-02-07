@@ -7,4 +7,5 @@ function yzd() {
 	rm -f "$tmp"
 }
 
-alias glow='glow -p'
+alias less='glow -p'
+alias g=glow
