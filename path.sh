@@ -8,6 +8,12 @@ path_add() {
 		return
 	fi
 
+	local prepend=false
+	if [[ "$1" == "-p" ]]; then
+		prepend=true
+		shift
+	fi
+
 	# Expand ~ to $HOME
 	local path="${1/#\~/$HOME}"
 
@@ -22,7 +28,11 @@ path_add() {
 	esac
 
 	# Add to PATH
-	PATH="$PATH:$path"
+	if [[ $prepend ]]; then
+		PATH="$path:$PATH"
+	else
+		PATH="$PATH:$path"
+	fi
 }
 
 path_add "$BASH_HELPERS/bin"

@@ -1,3 +1,4 @@
+path_add -p /opt/local/bin
 path_add ~/.cargo/bin
 path_add ~/.local/bin
 path_add ~/.opencode/bin
