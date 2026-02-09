@@ -30,10 +30,10 @@ function bm()
     if [ $# = 1 ]; then
         local D=$( _get_location_from_name $1 )
         if [ $? = 0 ]; then
-            cd $D
+            cd "$D"
             return 0
         else
-            echo "ERROR"
+            echo "ERROR: Bookmark '$1' not found"
             return 1
         fi
     fi
@@ -95,8 +95,7 @@ function _get_location_from_name()
             return 0
         fi
     done < "$BOOKMARK_FILE"
-    return $NONE
-    return -1
+    return 1
 }
 
 function _get_name_from_location()
@@ -111,8 +110,7 @@ function _get_name_from_location()
             return 0
         fi
     done < "$BOOKMARK_FILE"
-    echo $NONE
-    return -1
+    return 1
 }
 
 function _set_bookmark()
