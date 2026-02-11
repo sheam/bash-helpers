@@ -17,7 +17,7 @@ function bm()
         return $?
     fi
 
-    if [ "$1" = "-d" ]; then
+    if [ "$1" = "-r" ]; then
         _delete_bookmark "$2"
         return $?
     fi
@@ -47,7 +47,7 @@ function _print_help()
     echo "    bm -s <NAME>"
 
     echo "To delete a bookmark:"
-    echo "    bm -d <NAME>"
+    echo "    bm -r <NAME>"
 
     echo "To CD to a directory by bookmark name:"
     echo "    bm <NAME>"
@@ -124,13 +124,19 @@ function _set_bookmark()
 
     local EXISTING_LOCATION="$( _get_location_from_name $NAME)"
     if [ ! -z "$EXISTING_LOCATION" ]; then
-        echo "The bookmark named '$NAME' is already used to bookmarked'$EXISTING_LOCATION'. Delete before replacing (use 'bm -d $NAME')."
-        return -1
+        echo "The bookmark named '$NAME' already exists and points to '$EXISTING_LOCATION'."
+        read -p "Do you want to replace it? [y/N] " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            echo "Bookmark not updated."
+            return -1
+        fi
+        _delete_bookmark "$NAME" > /dev/null
     fi
 
     local EXISTING_NAME="$( _get_name_from_location $LOCATION)"
     if [ ! -z "$EXISTING_NAME" ]; then
-        echo "'$LOCATION' is already bookmarked under the name '$EXISTING_NAME'. Delete before replacing (use 'bm -d $EXISTING_NAME')."
+        echo "'$LOCATION' is already bookmarked under the name '$EXISTING_NAME'. Delete before replacing (use 'bm -r $EXISTING_NAME')."
         return -1
     fi
 
@@ -169,10 +175,10 @@ function _bm_completions()
     local prev="${COMP_WORDS[COMP_CWORD-1]}"
 
     # Options
-    local opts="-l -h -d -s"
+    local opts="-l -h -r -s"
 
-    # If completing after -d, complete with bookmark names
-    if [ "$prev" = "-d" ]; then
+    # If completing after -r, complete with bookmark names
+    if [ "$prev" = "-r" ]; then
         local names=""
         if [ -f "$BOOKMARK_FILE" ]; then
             names=$(awk '{print $1}' "$BOOKMARK_FILE")
