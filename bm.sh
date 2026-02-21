@@ -136,8 +136,7 @@ function _set_bookmark()
 
     local EXISTING_NAME="$( _get_name_from_location $LOCATION)"
     if [ ! -z "$EXISTING_NAME" ]; then
-        echo "'$LOCATION' is already bookmarked under the name '$EXISTING_NAME'. Delete before replacing (use 'bm -r $EXISTING_NAME')."
-        return -1
+        _delete_bookmark "$EXISTING_NAME" > /dev/null
     fi
 
     echo -e "$NAME\t\t$LOCATION" >> $BOOKMARK_FILE
