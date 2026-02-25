@@ -10,7 +10,11 @@ COLOR_BLUE="\033[01;34m"
 COLOR_WHITE="\033[01;37m"
 COLOR_RESET="\033[0m"
 
-. /usr/lib/git-core/git-sh-prompt
+if [ -f /usr/lib/git-core/git-sh-prompt ]; then
+    . /usr/lib/git-core/git-sh-prompt
+elif [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
+    . /usr/share/git-core/contrib/completion/git-prompt.sh
+fi
 export GIT_PS1_SHOWCOLORHINTS=1
 export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWDIRTYSTATE=1
