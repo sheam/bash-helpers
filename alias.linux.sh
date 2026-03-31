@@ -10,7 +10,7 @@ function yzd() {
 alias less='glow -p'
 alias g=glow
 
-alias sa='shpool attach'
+alias sa='shpool --daemonize attach'
 alias sd='shpool detach'
 alias sl='shpool list'
 alias sk='shpool kill'

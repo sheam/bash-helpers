@@ -1,3 +1,8 @@
+
+if command -v starship &>/dev/null; then
+    eval "$(starship init bash)"
+fi
+
 if [ -n "$STARSHIP_SHELL" ]; then
     return
 fi
